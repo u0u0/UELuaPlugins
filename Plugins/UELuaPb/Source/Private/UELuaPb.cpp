@@ -20,6 +20,9 @@ void FLuapbModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
     Handle = UnLua::FLuaEnv::OnCreated.AddStatic(&FLuapbModule::OnLuaEnvCreated);
+	// https://github.com/Tencent/UnLua/issues/484
+	for (const auto& Pair : UnLua::FLuaEnv::GetAll())
+		OnLuaEnvCreated(*Pair.Value);
 }
 
 void FLuapbModule::ShutdownModule()
