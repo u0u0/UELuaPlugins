@@ -16,19 +16,12 @@
 void FLuaMoreModule::StartupModule()
 {
 	// This code will execute after your module is loaded into memory; the exact timing is specified in the .uplugin file per-module
-    //Handle = UnLua::FLuaEnv::OnCreated.AddStatic(&FLuapbModule::OnLuaEnvCreated);
 }
 
 void FLuaMoreModule::ShutdownModule()
 {
 	// This function may be called during shutdown to clean up your module.  For modules that support dynamic reloading,
 	// we call this function before unloading the module.
-    //UnLua::FLuaEnv::OnCreated.Remove(Handle);
 }
-
-//void FLuaMoreModule::OnLuaEnvCreated(UnLua::FLuaEnv& Env)
-//{
-    /* Env.AddBuiltInLoader(TEXT("pb"), luaopen_pb); */
-//}
 
 IMPLEMENT_MODULE(FLuaMoreModule, UELuaMore)

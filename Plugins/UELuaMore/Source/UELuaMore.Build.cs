@@ -36,8 +36,5 @@ public class UELuaMore : ModuleRules
 				"UnLua",
 				"Lua",
 				});
-
-		//var BasePath = Path.GetFullPath(Path.Combine(ModuleDirectory, "lua-protobuf"));
-		//PublicIncludePaths.Add(BasePath);
 	}
 }

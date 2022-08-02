@@ -23,7 +23,4 @@ public:
 	/** IModuleInterface implementation */
 	virtual void StartupModule() override;
 	virtual void ShutdownModule() override;
-
-	//static void OnLuaEnvCreated(UnLua::FLuaEnv& Env);
-	//FDelegateHandle Handle;
 };
