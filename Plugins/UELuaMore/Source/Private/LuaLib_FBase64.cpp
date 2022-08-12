@@ -14,12 +14,39 @@
 #include "UnLuaEx.h"
 #include "Misc/Base64.h"
 
+static int FBase64_Encode(lua_State *L)
+{
+    // get param from lua
+    const char* bin = lua_tostring(L, 1);
+    lua_Integer length = luaL_len(L, 1);
+    // encode base64
+    FString Out = FBase64::Encode((const uint8*)bin, (uint32)length);
+    // return to lua
+    lua_pushstring(L, TCHAR_TO_UTF8(*Out));
+    return 1;
+}
+
+static int FBase64_Decode(lua_State *L)
+{
+    // get param from lua
+    const char* str = lua_tostring(L, 1);
+    FString Source = FString(str);
+    // decode base64
+    TArray<uint8> Data;
+    uint32 ExpectedLength = FBase64::GetDecodedDataSize(Source);
+    Data.AddZeroed(ExpectedLength);
+    if (FBase64::Decode(*Source, Source.Len(), (uint8*)Data.GetData())) {
+        lua_pushlstring(L, (const char *)Data.GetData(), (size_t)Data.Num());
+    } else {
+        lua_pushnil(L);
+    }
+    return 1;
+}
 
 BEGIN_EXPORT_CLASS(FBase64)
-	// 	static FString Encode(const FString& Source);
-	ADD_STATIC_FUNCTION_EX("Encode", FString, Encode, const FString&)
-	// 	static bool Decode(const FString& Source, FString& OutDest);
-	ADD_STATIC_FUNCTION_EX("Decode", bool, Decode, const FString&, FString&)
+    // static function
+    Class->AddStaticCFunction("Encode", FBase64_Encode);
+    Class->AddStaticCFunction("Decode", FBase64_Decode);
 END_EXPORT_CLASS()
 
 IMPLEMENT_EXPORTED_CLASS(FBase64)

@@ -25,6 +25,5 @@ UnLua的绑定只有核心部分，项目需要自行绑定一些扩展功能。
 FBase64绑定
 
 ```
-local rtnData = ""
-local isSuccess = UE.FBase64.Decode(base64Str, rtnData)
+local bin = UE.FBase64.Decode(base64)
 ```
