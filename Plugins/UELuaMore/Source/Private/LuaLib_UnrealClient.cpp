@@ -10,32 +10,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using System;
-using System.IO;
-using UnrealBuildTool;
+#include "UnLuaCompatibility.h"
+#include "UnLuaEx.h"
+#include "UnrealClient.h"
 
-public class UELuaMore : ModuleRules
-{
-	public UELuaMore(ReadOnlyTargetRules Target) : base(Target)
-	{
-		bEnforceIWYU = false;
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		bUseUnity = false;
-		bEnableUndefinedIdentifierWarnings = false;
 
-		PublicDependencyModuleNames.AddRange(new string[]
-				{
-				"Core",
-				"CoreUObject",
-				"Engine",
-				"InputCore",
-				"UMG",
-				});
+BEGIN_EXPORT_CLASS(FScreenshotRequest)
+    // static function
+    ADD_EXTERNAL_FUNCTION_EX("RequestScreenshot1", void, FScreenshotRequest::RequestScreenshot, bool)
+END_EXPORT_CLASS()
 
-		PrivateDependencyModuleNames.AddRange(new string[]
-				{
-				"UnLua",
-				"Lua",
-				});
-	}
-}
+IMPLEMENT_EXPORTED_CLASS(FScreenshotRequest)

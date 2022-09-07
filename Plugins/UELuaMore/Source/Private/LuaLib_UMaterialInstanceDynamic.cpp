@@ -10,32 +10,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using System;
-using System.IO;
-using UnrealBuildTool;
+#include "UnLuaCompatibility.h"
+#include "UnLuaEx.h"
+#include "Materials/MaterialInstanceDynamic.h"
 
-public class UELuaMore : ModuleRules
-{
-	public UELuaMore(ReadOnlyTargetRules Target) : base(Target)
-	{
-		bEnforceIWYU = false;
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		bUseUnity = false;
-		bEnableUndefinedIdentifierWarnings = false;
 
-		PublicDependencyModuleNames.AddRange(new string[]
-				{
-				"Core",
-				"CoreUObject",
-				"Engine",
-				"InputCore",
-				"UMG",
-				});
+// expend func for MaterialInstanceDynamic which not be mark as UFUNCTION
+// need use BEGIN_EXPORT_REFLECTED_CLASS
+BEGIN_EXPORT_REFLECTED_CLASS(UMaterialInstanceDynamic)
+    // static functions
+    ADD_EXTERNAL_FUNCTION_EX("Create", UMaterialInstanceDynamic*, UMaterialInstanceDynamic::Create, class UMaterialInterface*, class UObject*, FName)
+END_EXPORT_CLASS()
 
-		PrivateDependencyModuleNames.AddRange(new string[]
-				{
-				"UnLua",
-				"Lua",
-				});
-	}
-}
+IMPLEMENT_EXPORTED_CLASS(UMaterialInstanceDynamic)

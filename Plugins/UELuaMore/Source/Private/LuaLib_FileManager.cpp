@@ -61,7 +61,7 @@ static int32 IFileManager_MakeDirectory(lua_State* L)
     // get param from lua
     const char* path = lua_tostring(L, 2);
     if (lua_isboolean(L, 3)) {
-        lua_pushboolean(L, V->MakeDirectory(UTF8_TO_TCHAR(path), lua_toboolean(L, 3)));
+        lua_pushboolean(L, V->MakeDirectory(UTF8_TO_TCHAR(path), (bool)lua_toboolean(L, 3)));
     } else {
         lua_pushboolean(L, V->MakeDirectory(UTF8_TO_TCHAR(path)));
     }
@@ -80,7 +80,7 @@ static int32 IFileManager_DeleteDirectory(lua_State* L)
     // get param from lua
     const char* path = lua_tostring(L, 2);
     if (lua_isboolean(L, 3)) {
-        lua_pushboolean(L, V->DeleteDirectory(UTF8_TO_TCHAR(path), 0, lua_toboolean(L, 3)));
+        lua_pushboolean(L, V->DeleteDirectory(UTF8_TO_TCHAR(path), false,  (bool)lua_toboolean(L, 3)));
     } else {
         lua_pushboolean(L, V->DeleteDirectory(UTF8_TO_TCHAR(path)));
     }

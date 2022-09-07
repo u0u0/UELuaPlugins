@@ -10,32 +10,18 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
 // See the License for the specific language governing permissions and limitations under the License.
 
-using System;
-using System.IO;
-using UnrealBuildTool;
+#include "UnLuaCompatibility.h"
+#include "UnLuaEx.h"
+#include "Math/UnrealMathUtility.h"
 
-public class UELuaMore : ModuleRules
+static FVector FMath_LinePlaneIntersection(const FVector& Point1, const FVector& Point2, const FVector& PlaneOrigin, const FVector& PlaneNormal)
 {
-	public UELuaMore(ReadOnlyTargetRules Target) : base(Target)
-	{
-		bEnforceIWYU = false;
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-		bUseUnity = false;
-		bEnableUndefinedIdentifierWarnings = false;
-
-		PublicDependencyModuleNames.AddRange(new string[]
-				{
-				"Core",
-				"CoreUObject",
-				"Engine",
-				"InputCore",
-				"UMG",
-				});
-
-		PrivateDependencyModuleNames.AddRange(new string[]
-				{
-				"UnLua",
-				"Lua",
-				});
-	}
+    return FMath::LinePlaneIntersection(Point1, Point2, PlaneOrigin, PlaneNormal);
 }
+
+BEGIN_EXPORT_CLASS(FMath)
+    // static functions
+    ADD_EXTERNAL_FUNCTION_EX("LinePlaneIntersection", FVector, FMath_LinePlaneIntersection, const FVector&, const FVector&, const FVector&, const FVector&)
+END_EXPORT_CLASS()
+
+IMPLEMENT_EXPORTED_CLASS(FMath)
